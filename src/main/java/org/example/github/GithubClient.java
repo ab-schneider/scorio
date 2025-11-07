@@ -16,7 +16,7 @@ public class GithubClient {
         this.githubClient = githubClient;
     }
 
-    @Cacheable(cacheNames = "githubSearch", key = "#root.target.buildCacheKey(#language, #createdAfter, #perPage, #page)")
+    @Cacheable(cacheNames = "githubSearch", key = "#root.target.buildCacheKey(#root.args[0], #root.args[1], #root.args[4], #root.args[5])")
     public GithubSearchResponse searchRepositories(String language, LocalDate createdAfter, String sort, String order, int perPage, int page) {
         String normalizedLanguage = normalizeLanguage(language);
 
