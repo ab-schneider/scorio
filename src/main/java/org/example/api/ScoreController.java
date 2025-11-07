@@ -20,8 +20,7 @@ public class ScoreController {
     }
 
     @GetMapping("/repositories/score")
-    public PagedScoreResponse search(Authentication auth,
-                                     @RequestParam(name = "language", required = false) String language,
+    public PagedScoreResponse search(@RequestParam(name = "language", required = false) String language,
                                      @RequestParam(name = "created_after", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate createdAfter,
                                      @RequestParam(name = "algo", defaultValue = "default") String algo,
                                      @RequestParam(name = "per_page", defaultValue = "30") @Min(1) @Max(100) int perPage,

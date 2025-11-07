@@ -35,7 +35,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 String sub = claims.getSubject();
                 var authToken = new UsernamePasswordAuthenticationToken(sub, null, List.of());
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-                request.setAttribute("userId", sub);
             } catch (Exception e) {
                 SecurityContextHolder.clearContext();
                 throw new BadCredentialsException("Invalid or expired token", e);

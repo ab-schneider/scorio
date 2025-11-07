@@ -20,5 +20,5 @@ scorio:
   jwt:
     issuer: scorio
     # random value via ENV in real life:
-    secret: ${JWT_SECRET:change-me-please}
+    secret: ${JWT_SECRET}
     expiryMinutes: 10
