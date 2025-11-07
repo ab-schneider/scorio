@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.config.GithubProperties;
+import org.example.github.config.GithubProperties;
 import org.example.github.GithubClient;
 import org.example.score.ScoringRegistry;
 import org.example.api.dto.PagedScoreResponse;

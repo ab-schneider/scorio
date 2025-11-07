@@ -1,4 +1,4 @@
-package org.example.config;
+package org.example.github.config;
 
 
 import jakarta.validation.constraints.Max;

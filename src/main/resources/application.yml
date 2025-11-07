@@ -11,3 +11,8 @@ scorio:
     defaultSort: "stars"
     defaultOrder: "desc"
     defaultPerPage: 20
+  jwt:
+    issuer: scorio
+    # random value via ENV in real life:
+    secret: ${JWT_SECRET:change-me-please}
+    expiryMinutes: 10
