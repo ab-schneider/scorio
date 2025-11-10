@@ -1,6 +1,7 @@
 package org.example.github;
 
 import org.example.github.dto.GithubSearchResponse;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -15,11 +16,13 @@ public class GithubClient {
         this.githubClient = githubClient;
     }
 
+    @Cacheable(cacheNames = "githubSearch", key = "#root.target.buildCacheKey(#root.args[0], #root.args[1], #root.args[4], #root.args[5])")
     public GithubSearchResponse searchRepositories(String language, LocalDate createdAfter, String sort, String order, int perPage, int page) {
+        String normalizedLanguage = normalizeLanguage(language);
 
         StringBuilder path = new StringBuilder("/search/repositories?q=");
-        if (language != null && !language.isBlank()) {
-            path.append("language:").append(language.trim()).append(' ');
+        if (!normalizedLanguage.isBlank()) {
+            path.append("language:").append(normalizedLanguage).append(' ');
         }
         if (createdAfter != null) {
             path.append("created:>=").append(createdAfter);
@@ -38,5 +41,20 @@ public class GithubClient {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(GithubSearchResponse.class);
+    }
+
+    @SuppressWarnings("unused")
+    public String buildCacheKey(String language, LocalDate createdAfter, Integer perPage, Integer page) {
+        String created = createdAfter != null ? createdAfter.toString() : "";
+        String perPageValue = perPage != null ? perPage.toString() : "";
+        String pageValue = page != null ? page.toString() : "";
+        return normalizeLanguage(language) + '|' + created + '|' + perPageValue + '|' + pageValue;
+    }
+
+    private String normalizeLanguage(String language) {
+        if (language == null || language.isBlank()) {
+            return "";
+        }
+        return language.trim().toLowerCase();
     }
 }

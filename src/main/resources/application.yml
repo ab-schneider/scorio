@@ -1,6 +1,12 @@
 server:
   port: 8080
 
+spring:
+  security:
+    user:
+      name: ${SPRING_SECURITY_DEFAULT_USER:user}
+      password: ${SPRING_SECURITY_DEFAULT_PASSWORD:change-me}
+
 scorio:
   github:
     token: ${GITHUB_TOKEN:}   # environment variable preferred; leave empty for unauth (low rate limit)
@@ -11,3 +17,8 @@ scorio:
     defaultSort: "stars"
     defaultOrder: "desc"
     defaultPerPage: 20
+  jwt:
+    issuer: scorio
+    # random value via ENV in real life:
+    secret: ${JWT_SECRET}
+    expiryMinutes: 10

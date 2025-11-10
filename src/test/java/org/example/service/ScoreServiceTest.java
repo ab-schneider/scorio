@@ -2,7 +2,7 @@ package org.example.service;
 
 import org.example.api.dto.PagedScoreResponse;
 import org.example.api.dto.ScoreItem;
-import org.example.config.GithubProperties;
+import org.example.github.config.GithubProperties;
 import org.example.github.GithubClient;
 import org.example.github.dto.GithubSearchResponse;
 import org.example.score.DefaultScoring;
